@@ -59,7 +59,7 @@ public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecific
     @Query("select distinct l.titulo from Livro l")
     List<String> listarNomesDiferentesLivros();
 
-    @Query("""
+    @Query(""" 
         select l.genero
         from Livro l
         join l.autor a
