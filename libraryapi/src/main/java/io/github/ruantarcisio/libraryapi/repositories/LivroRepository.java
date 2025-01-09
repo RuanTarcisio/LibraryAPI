@@ -4,6 +4,7 @@ import io.github.ruantarcisio.libraryapi.domain.Autor;
 import io.github.ruantarcisio.libraryapi.domain.Livro;
 import io.github.ruantarcisio.libraryapi.enums.GeneroLivro;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -16,12 +17,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 /**
  * @see LivroRepositoryTest
  */
 public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecificationExecutor<Livro> {
 
-//    Page<Livro> findByAutor(Autor autor, Pageable pageable);
+    Page<Livro> findByAutor(Autor autor, Pageable pageable);
 
     // Query Method
     // select * from livro where id_autor = id
@@ -59,7 +61,7 @@ public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecific
     @Query("select distinct l.titulo from Livro l")
     List<String> listarNomesDiferentesLivros();
 
-    @Query(""" 
+    @Query("""
         select l.genero
         from Livro l
         join l.autor a

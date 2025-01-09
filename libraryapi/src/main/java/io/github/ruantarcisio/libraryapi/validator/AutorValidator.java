@@ -16,19 +16,19 @@ public class AutorValidator {
         this.repository = repository;
     }
 
-    public void validar(Autor autor){
-        if(existeAutorCadastrado(autor)){
+    public void validar(Autor autor) {
+        if (existeAutorCadastrado(autor)) {
             throw new RegistroDuplicadoException("Autor já cadastrado!");
         }
     }
 
-    private boolean existeAutorCadastrado(Autor autor){
+    private boolean existeAutorCadastrado(Autor autor) {
         Optional<Autor> autorEncontrado = repository.findByNomeAndDataNascimentoAndNacionalidade(
                 autor.getNome(), autor.getDataNascimento(), autor.getNacionalidade()
         );
 
-        if(autor.getId() == null){
-            return autorEncontrado.isPresent() ;
+        if (autor.getId() == null) {
+            return autorEncontrado.isPresent();
         }
 
         return !autor.getId().equals(autorEncontrado.get().getId()) && autorEncontrado.isPresent();

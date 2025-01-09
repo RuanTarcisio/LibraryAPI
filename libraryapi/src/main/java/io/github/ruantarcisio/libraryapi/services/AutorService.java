@@ -22,48 +22,48 @@ public class AutorService {
     private final AutorValidator validator;
     private final LivroRepository livroRepository;
 
-    public Autor salvar(Autor autor){
+    public Autor salvar(Autor autor) {
         validator.validar(autor);
         return repository.save(autor);
     }
 
-    public void atualizar(Autor autor){
-        if(autor.getId() == null){
+    public void atualizar(Autor autor) {
+        if (autor.getId() == null) {
             throw new IllegalArgumentException("Para atualizar, é necessário que o autor já esteja salvo na base.");
         }
         validator.validar(autor);
         repository.save(autor);
     }
 
-    public Optional<Autor> obterPorId(UUID id){
+    public Optional<Autor> obterPorId(UUID id) {
         return repository.findById(id);
     }
 
-    public void deletar(Autor autor){
-        if(possuiLivro(autor)){
+    public void deletar(Autor autor) {
+        if (possuiLivro(autor)) {
             throw new OperacaoNaoPermitidaException(
                     "Não é permitido excluir um Autor que possui livros cadastrados!");
         }
         repository.delete(autor);
     }
 
-    public List<Autor> pesquisa(String nome, String nacionalidade){
-        if(nome != null && nacionalidade != null){
+    public List<Autor> pesquisa(String nome, String nacionalidade) {
+        if (nome != null && nacionalidade != null) {
             return repository.findByNomeAndNacionalidade(nome, nacionalidade);
         }
 
-        if(nome != null){
+        if (nome != null) {
             return repository.findByNome(nome);
         }
 
-        if(nacionalidade != null){
+        if (nacionalidade != null) {
             return repository.findByNacionalidade(nacionalidade);
         }
 
         return repository.findAll();
     }
 
-    public List<Autor> pesquisaByExample(String nome, String nacionalidade){
+    public List<Autor> pesquisaByExample(String nome, String nacionalidade) {
         var autor = new Autor();
         autor.setNome(nome);
         autor.setNacionalidade(nacionalidade);
@@ -78,7 +78,7 @@ public class AutorService {
         return repository.findAll(autorExample);
     }
 
-    public boolean possuiLivro(Autor autor){
+    public boolean possuiLivro(Autor autor) {
         return livroRepository.existsByAutor(autor);
     }
 }

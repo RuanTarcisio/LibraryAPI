@@ -23,7 +23,7 @@ public record AutorDTO(
 ) {
 
 
-    public Autor mapearParaAutor(){
+    public Autor mapearParaAutor() {
         Autor autor = new Autor();
         autor.setNome(this.nome);
         autor.setDataNascimento(this.dataNascimento);

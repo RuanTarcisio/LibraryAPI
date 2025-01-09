@@ -23,7 +23,7 @@ public class TransacaoService {
 
     /// livro (titulo,..., nome_arquivo) -> id.png
     @Transactional
-    public void salvarLivroComFoto(){
+    public void salvarLivroComFoto() {
         // salva o livro
         // repository.save(livro);
 
@@ -38,16 +38,16 @@ public class TransacaoService {
     }
 
     @Transactional
-    public void atualizacaoSemAtualizar(){
+    public void atualizacaoSemAtualizar() {
         var livro = livroRepository
                 .findById(UUID.fromString("daed83b3-65fd-49eb-9400-cbc0af13059d"))
                 .orElse(null);
 
-        livro.setDataPublicacao(LocalDate.of(2024,6,1));
+        livro.setDataPublicacao(LocalDate.of(2024, 6, 1));
     }
 
     @Transactional
-    public void executar(){
+    public void executar() {
         // salva o autor
         Autor autor = new Autor();
         autor.setNome("Teste Francisco");
@@ -68,7 +68,7 @@ public class TransacaoService {
 
         livroRepository.save(livro);
 
-        if(autor.getNome().equals("Teste Francisco")){
+        if (autor.getNome().equals("Teste Francisco")) {
             throw new RuntimeException("Rollback!");
         }
     }
