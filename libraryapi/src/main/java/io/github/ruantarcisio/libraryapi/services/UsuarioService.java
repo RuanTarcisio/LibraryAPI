@@ -13,13 +13,13 @@ public class UsuarioService {
     private final UsuarioRepository repository;
     private final PasswordEncoder encoder;
 
-    public void salvar(Usuario usuario){
+    public void salvar(Usuario usuario) {
         var senha = usuario.getSenha();
         usuario.setSenha(encoder.encode(senha));
         repository.save(usuario);
     }
 
-    public Usuario obterPorLogin(String login){
+    public Usuario obterPorLogin(String login) {
         return repository.findByLogin(login);
     }
 }

@@ -14,7 +14,7 @@ public class SecurityService {
 
     private final UsuarioService usuarioService;
 
-    public Usuario obterUsuarioLogado(){
+    public Usuario obterUsuarioLogado() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String login = userDetails.getUsername();

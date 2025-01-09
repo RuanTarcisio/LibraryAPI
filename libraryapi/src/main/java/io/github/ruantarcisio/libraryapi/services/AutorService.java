@@ -1,9 +1,11 @@
 package io.github.ruantarcisio.libraryapi.services;
 
 import io.github.ruantarcisio.libraryapi.domain.Autor;
+import io.github.ruantarcisio.libraryapi.domain.Usuario;
 import io.github.ruantarcisio.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import io.github.ruantarcisio.libraryapi.repositories.AutorRepository;
 import io.github.ruantarcisio.libraryapi.repositories.LivroRepository;
+import io.github.ruantarcisio.libraryapi.security.SecurityService;
 import io.github.ruantarcisio.libraryapi.validator.AutorValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
@@ -21,9 +23,12 @@ public class AutorService {
     private final AutorRepository repository;
     private final AutorValidator validator;
     private final LivroRepository livroRepository;
+    private final SecurityService securityService;
 
     public Autor salvar(Autor autor) {
         validator.validar(autor);
+        Usuario usuario = securityService.obterUsuarioLogado();
+        autor.setUsuario(usuario);
         return repository.save(autor);
     }
 
