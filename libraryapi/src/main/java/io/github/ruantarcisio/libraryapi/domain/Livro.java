@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "livro")
+@Table(name = "livros")
 @Data
 @ToString(exclude = "autor")
 @EntityListeners(AuditingEntityListener.class)

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "autor", schema = "public")
+@Table(name = "autores")
 @Getter
 @Setter
 @ToString(exclude = {"livros"})

@@ -1,15 +1,14 @@
 package io.github.ruantarcisio.libraryapi.domain;
 
-import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Type;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table
+@Table(name = "usuarios")
 @Data
 public class Usuario {
 
@@ -23,7 +22,11 @@ public class Usuario {
     @Column
     private String senha;
 
-    @Type(ListArrayType.class)
-    @Column(name = "roles", columnDefinition = "varchar[]")
-    private List<String> roles;
+    @ManyToMany
+    @JoinTable(
+            name = "usuarios_roles", // Nome da tabela intermediária
+            joinColumns = @JoinColumn(name = "user_id"), // Coluna que referencia User
+            inverseJoinColumns = @JoinColumn(name = "role_id") // Coluna que referencia Role
+    )
+    private Set<Role> roles = new HashSet<>();
 }

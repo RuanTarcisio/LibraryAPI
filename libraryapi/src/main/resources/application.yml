@@ -1,20 +1,36 @@
 spring:
   application:
     name: arq_spring
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/curso_spring_espec
+    url: jdbc:postgresql://localhost:5432/spring_espec
     username: postgres
     password: senh@BD
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
     open-in-view: true
     properties:
       hibernate:
         "globally_quoted_identifiers": "true"
       hibernate.format_sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 669189049321-nlj5i6iu2aejt5kjgd9d8jprd7cp0r0k.apps.googleusercontent.com
+            client-secret: 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
+
+  flyway:
+    url: jdbc:postgresql://localhost:5432/spring_espec
+    user: postgres
+    password: senh@BD
+    baseline-on-migrate: true
 
 api:
   security:
