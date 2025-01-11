@@ -22,6 +22,9 @@ public class Usuario {
     @Column
     private String senha;
 
+    @Column
+    private String email;
+
     @ManyToMany
     @JoinTable(
             name = "usuarios_roles", // Nome da tabela intermediária

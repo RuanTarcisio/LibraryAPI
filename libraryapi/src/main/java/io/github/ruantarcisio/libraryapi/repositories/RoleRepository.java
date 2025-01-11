@@ -1,13 +1,11 @@
 package io.github.ruantarcisio.libraryapi.repositories;
 
+import io.github.ruantarcisio.libraryapi.domain.Role;
 import io.github.ruantarcisio.libraryapi.domain.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    Usuario findByLogin(String login);
-
-    Usuario findByEmail(String email);
 }

@@ -27,13 +27,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String senhaDigitada = authentication.getCredentials().toString();
 
         Usuario usuarioEncontrado = usuarioService.obterPorLogin(login);
+        Hibernate.initialize(usuarioEncontrado.getRoles());
 
         if (usuarioEncontrado == null)
             throw getErroUsuarioNaoEncontrado();
 
         String senhaCriptografada = usuarioEncontrado.getSenha();
         boolean senhasBatem = encoder.matches(senhaDigitada, senhaCriptografada);
-        Hibernate.initialize(usuarioEncontrado.getRoles());
+
 
         if (senhasBatem) {
             return new CustomAuthentication(usuarioEncontrado);

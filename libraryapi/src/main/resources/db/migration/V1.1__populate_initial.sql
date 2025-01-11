@@ -8,14 +8,10 @@ INSERT INTO roles (nome) VALUES ('GERENTE');
 -- Insere usuários na tabela 'usuarios'
 INSERT INTO usuarios (id, login, senha)
 VALUES
-    ('123e4567-e89b-12d3-a456-426614174001', 'usuario1', '$2a$12$7mku8Idh7UGbn1Py8yGHbeMcOkDXt226xCq5GG8.ji6JmUixVHGKi
-'),
-    ('123e4567-e89b-12d3-a456-426614174002', 'usuario2', '$2a$12$7mku8Idh7UGbn1Py8yGHbeMcOkDXt226xCq5GG8.ji6JmUixVHGKi
-'),
-    ('123e4567-e89b-12d3-a456-426614174003', 'usuario3', '$2a$12$7mku8Idh7UGbn1Py8yGHbeMcOkDXt226xCq5GG8.ji6JmUixVHGKi
-'),
-    ('123e4567-e89b-12d3-a456-426614174004', 'usuario4', '$2a$12$7mku8Idh7UGbn1Py8yGHbeMcOkDXt226xCq5GG8.ji6JmUixVHGKi
-');
+    ('123e4567-e89b-12d3-a456-426614174001', 'usuario1', '$2a$12$7mku8Idh7UGbn1Py8yGHbeMcOkDXt226xCq5GG8.ji6JmUixVHGKi'),
+    ('123e4567-e89b-12d3-a456-426614174002', 'usuario2', '$2a$12$7mku8Idh7UGbn1Py8yGHbeMcOkDXt226xCq5GG8.ji6JmUixVHGKi'),
+    ('123e4567-e89b-12d3-a456-426614174003', 'usuario3', '$2a$12$7mku8Idh7UGbn1Py8yGHbeMcOkDXt226xCq5GG8.ji6JmUixVHGKi'),
+    ('123e4567-e89b-12d3-a456-426614174004', 'usuario4', '$2a$12$7mku8Idh7UGbn1Py8yGHbeMcOkDXt226xCq5GG8.ji6JmUixVHGKi');
 
 -- Associa papéis aos usuários na tabela 'user_roles'
 INSERT INTO usuarios_roles (user_id, role_id)

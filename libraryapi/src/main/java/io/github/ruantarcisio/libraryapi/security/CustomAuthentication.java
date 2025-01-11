@@ -1,15 +1,15 @@
 package io.github.ruantarcisio.libraryapi.security;
 
+import io.github.ruantarcisio.libraryapi.domain.Role;
 import io.github.ruantarcisio.libraryapi.domain.Usuario;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -21,13 +21,10 @@ public class CustomAuthentication implements Authentication {
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
 
-        List<String> roles = usuario.getRoles()
+        return Optional.ofNullable(usuario.getRoles())
+                .orElseThrow(() -> new RuntimeException("Algo de errado esta muito errado")) // Se for null, retorna um conjunto vazio
                 .stream()
-                .map(role -> "ROLE_" + role.getNome())
-                .collect(Collectors.toList());
-
-        return roles
-                .stream()
+                .map(Role::getNome)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
