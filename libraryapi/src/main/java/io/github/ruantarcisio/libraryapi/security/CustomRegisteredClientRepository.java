@@ -47,8 +47,6 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
                     grantTypes.add(AuthorizationGrantType.CLIENT_CREDENTIALS);
                     grantTypes.add(AuthorizationGrantType.REFRESH_TOKEN);
                 })
-//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-//                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .tokenSettings(tokenSettings)
                 .clientSettings(clientSettings)
                 .build();

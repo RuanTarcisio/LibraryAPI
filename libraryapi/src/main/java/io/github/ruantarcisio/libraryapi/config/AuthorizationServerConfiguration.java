@@ -13,6 +13,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,8 +45,10 @@ public class AuthorizationServerConfiguration {
     @Bean
     @Order(1)
     public SecurityFilterChain authServerSecurityFilterChain(HttpSecurity http) throws Exception {
-
-//        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+        http
+                .securityMatcher("/oauth2/**", "/.well-known/**") // Limita a correspondência de rotas específicas do Authorization Server
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .csrf(AbstractHttpConfigurer::disable);
 
         http.with(OAuth2AuthorizationServerConfigurer.authorizationServer(), Customizer.withDefaults());
 
@@ -57,8 +60,8 @@ public class AuthorizationServerConfiguration {
         http.formLogin(configurer -> configurer.loginPage("/login"));
 
         return http.build();
-
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
