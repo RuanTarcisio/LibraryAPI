@@ -29,4 +29,5 @@ public class LoginViewController {
     public String getAuthorizationCode(@RequestParam("code") String code) {
         return "Seu authorization code: " + code;
     }
+    
 }
