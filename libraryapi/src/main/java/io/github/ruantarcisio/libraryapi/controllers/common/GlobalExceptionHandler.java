@@ -5,6 +5,7 @@ import io.github.ruantarcisio.libraryapi.controllers.dto.ErroResposta;
 import io.github.ruantarcisio.libraryapi.exceptions.CampoInvalidoException;
 import io.github.ruantarcisio.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import io.github.ruantarcisio.libraryapi.exceptions.RegistroDuplicadoException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -64,7 +66,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErroResposta handleErrosNaoTratados(RuntimeException e) {
-        System.out.println(e.getMessage());
+        log.error("Erro inesperado", e);
         return new ErroResposta(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Ocorreu um erro inesperado. Entre em contato com a administração."

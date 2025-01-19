@@ -29,14 +29,16 @@ public class SecurityConfiguration {
             HttpSecurity http,
             LoginSocialSuccessHandler successHandler,
             JwtCustomAuthenticationFilter jwtCustomAuthenticationFilter) throws Exception {
-        http
-                .securityMatcher("/api/**") // Limita a correspondência para rotas de API
+
+        return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(configurer -> configurer.loginPage("/login"))
+                .formLogin(configurer -> {
+                    configurer.loginPage("/login");
+                })
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/login/**").permitAll();
                     authorize.requestMatchers(HttpMethod.POST, "/usuarios/**").permitAll();
+
                     authorize.anyRequest().authenticated();
                 })
                 .oauth2Login(oauth2 -> {
@@ -45,9 +47,8 @@ public class SecurityConfiguration {
                             .successHandler(successHandler);
                 })
                 .oauth2ResourceServer(oauth2RS -> oauth2RS.jwt(Customizer.withDefaults()))
-                .addFilterAfter(jwtCustomAuthenticationFilter, BearerTokenAuthenticationFilter.class);
-
-        return http.build();
+                .addFilterAfter(jwtCustomAuthenticationFilter, BearerTokenAuthenticationFilter.class)
+                .build();
     }
 
     @Bean

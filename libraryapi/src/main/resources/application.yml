@@ -1,6 +1,9 @@
 spring:
   application:
     name: arq_spring
+  output:
+    ansi:
+      enabled: ALWAYS
 
   datasource:
     url: jdbc:postgresql://localhost:5432/spring_espec
@@ -36,6 +39,37 @@ spring:
 #  security:
 #    token:
 #      secret: 98b3a9198243172be6a1ecb688567f9905c93250f489c1fa0a4bab507956ebea
+
+logging:
+  pattern:
+    console: '%clr(%d{dd-MM-yyyy HH:mm:ss}){faint} %clr(%5p) %clr([%t]){faint} %clr(%-40.40logger){cyan} %clr(:){yellow} %m%n'
+  file:
+    name: app.log
+  level:
+    root: warn
+    io:
+      github:
+        ruantarcisio: trace
+    org:
+      springframework:
+        web: debug
+        security: trace
+
+# trace
+# debug
+# info
+# warn
+# error
+
+management:
+  server:
+    port: 9090
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
 
 springdoc:
   override-with-generic-response: false

@@ -45,12 +45,24 @@ public class AuthorizationServerConfiguration {
     @Bean
     @Order(1)
     public SecurityFilterChain authServerSecurityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .securityMatcher("/oauth2/**", "/.well-known/**") // Limita a correspondência de rotas específicas do Authorization Server
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .csrf(AbstractHttpConfigurer::disable);
+//        http
+//                .securityMatcher("/oauth2/**", "/.well-known/**") // Limita a correspondência de rotas específicas do Authorization Server
+//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+//                .csrf(AbstractHttpConfigurer::disable);
+//
+//        http.with(OAuth2AuthorizationServerConfigurer.authorizationServer(), Customizer.withDefaults());
+//
+//        http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
+//                .oidc(Customizer.withDefaults());
+//
+//        http.oauth2ResourceServer(oauth2Rs -> oauth2Rs.jwt(Customizer.withDefaults()));
+//
+//        http.formLogin(configurer -> configurer.loginPage("/login"));
+//
+//        return http.build();
 
-        http.with(OAuth2AuthorizationServerConfigurer.authorizationServer(), Customizer.withDefaults());
+
+        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .oidc(Customizer.withDefaults());
@@ -60,6 +72,7 @@ public class AuthorizationServerConfiguration {
         http.formLogin(configurer -> configurer.loginPage("/login"));
 
         return http.build();
+
     }
 
 
